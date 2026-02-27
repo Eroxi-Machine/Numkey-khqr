@@ -13,7 +13,7 @@ export const generateRequestTime = () =>{
     return `${year}${month}${day}${hours}${minutes}${seconds}`;
 }
 
-/* Generate a hash value for a given string */
+/* Generate a hash value for a given String */
 const normalizeValue = (value) => (value === null || value === undefined ? '' : String(value));
 
 export const generateQRHash = (payload, apiKey) => {
