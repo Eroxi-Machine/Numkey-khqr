@@ -1,0 +1,7 @@
+{
+    "PORT": 5050,
+    "NODE_ENV": "development",
+    "ABA_API_KEY": "22e9e0cf-d5b4-4a31-82db-bc1046b20dac",
+    "ABA_MERCHANT_ID": "eroxisabaypay",
+    "PAYWAY_BASE_URL": "https://checkout-sandbox.payway.com.kh"
+}
