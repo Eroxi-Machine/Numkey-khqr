@@ -3,6 +3,7 @@ import logger from "../utils/logger.js";
 import abaServer from "../services/abaServer.js";
 import abaConfig from "../config/aba.config.js";
 import { generateRequestTime, generateQRHash, generateCheckTransactionHash, generateTransactionId } from "../utils/hashGenerator.js";
+import { normalizeItemsForAba } from "../utils/abaPayload.js";
 
 class ABAController{
 
@@ -30,6 +31,7 @@ class ABAController{
 
             const req_time = generateRequestTime();
             const tran_id = generateTransactionId();
+            const normalizedItems = normalizeItemsForAba(items);
 
             /* Prepare request payload for ABA api */
             const payload = {
@@ -37,7 +39,7 @@ class ABAController{
                 merchant_id: abaConfig.merchantId,
                 tran_id,
                 amount,
-                items: items ?? "",
+                items: normalizedItems,
                 first_name: first_name ?? "",
                 last_name: last_name ?? "",
                 email: email ?? "",
