@@ -74,8 +74,11 @@ onBeforeUnmount(() => {
           <p>QR expires in</p>
 
           <div class="flex items-center gap-2">
-            <span class="h-4 w-4 animate-spin rounded-full border-2 border-amber-300/40 border-t-amber-300"></span>
-            <span :class="qrTimeRemaining <= 30 ? 'text-red-400 font-bold' : 'text-amber-300'">
+            <span class="h-4 w-4 animate-spin rounded-full border-2" :class="qrTimeRemaining <= 30
+              ? 'border-red-400/40 border-t-red-400'
+              : 'border-emerald-500/40 border-t-emerald-500'"></span>
+
+            <span :class="qrTimeRemaining <= 30 ? 'text-red-400 font-bold' : 'text-teal-300'">
               {{ formattedQrTime }}
             </span>
           </div>
