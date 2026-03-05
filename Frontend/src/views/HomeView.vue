@@ -1,5 +1,5 @@
 <script setup>
-import { onBeforeUnmount, onMounted } from 'vue';
+import { computed, onBeforeUnmount, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import BaseModal from '../components/BaseModal.vue';
@@ -7,7 +7,14 @@ import IsLoading from '../components/UI/isLoading.vue';
 import { useAbaKhqrStore } from '../stores/abakhqr';
 
 const store = useAbaKhqrStore();
-const { enteredCode, selectedProduct, qrData, loading, error, showSuccessModal, checkingPayment } = storeToRefs(store);
+const { enteredCode, selectedProduct, qrData, loading, error, showSuccessModal, checkingPayment, qrTimeRemaining } = storeToRefs(store);
+
+const formattedQrTime = computed(() => {
+  const s = qrTimeRemaining.value;
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return `${m}:${String(sec).padStart(2, '0')}`;
+});
 
 const onKeyDown = (event) => {
   if (/^\d$/.test(event.key)) {
@@ -63,10 +70,15 @@ onBeforeUnmount(() => {
         </div>
 
         <p v-if="error" class="font-semibold text-red-400">{{ error }}</p>
-        <div v-if="qrData && checkingPayment"
-          class="flex items-center justify-center gap-2 text-sm font-medium text-amber-300">
-          <span class="h-4 w-4 animate-spin rounded-full border-2 border-amber-300/40 border-t-amber-300"></span>
-          <p>Waiting for payment confirmation...</p>
+        <div v-if="qrData && checkingPayment" class="flex items-center justify-between gap-2 text-sm font-medium">
+          <p>QR expires in</p>
+
+          <div class="flex items-center gap-2">
+            <span class="h-4 w-4 animate-spin rounded-full border-2 border-amber-300/40 border-t-amber-300"></span>
+            <span :class="qrTimeRemaining <= 30 ? 'text-red-400 font-bold' : 'text-amber-300'">
+              {{ formattedQrTime }}
+            </span>
+          </div>
         </div>
 
         <div v-if="qrData && selectedProduct"
