@@ -7,9 +7,9 @@ import logger from './src/utils/logger.js';
 import abaConfig from './abaConfig.json' with { type: 'json' };
 
 const app = express();
-const PORT = abaConfig.PORT ?? 5050;
+const PORT =5050;
 
-// Middleware
+/* Middleware */
 app.use(cors({
     origin: abaConfig.FRONTEND_URL ?? 'http://localhost:5173',
     credentials: true

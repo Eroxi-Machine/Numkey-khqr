@@ -27,7 +27,7 @@ export const normalizeItemsForAba = (items) => {
             }
             return toBase64(parsed);
         } catch {
-            throw new Error("Invalid items format. Provide array, JSON array string, or Base64-encoded JSON array.");
+            throw new Error("Invalid ims format. Provide array, JSON array string, or Base64-encoded JSON array.");
         }
     }
 
